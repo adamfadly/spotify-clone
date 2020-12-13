@@ -8,15 +8,13 @@
         <img src="@/assets/logos-spotify/Spotify_Logo_Green.png" alt="" />
       </div>
       <div class="flex flex-row justify-center">
-        <a href="#">
-          <button
-            @click="redirectLogin()"
-            id="button-login"
-            class="text-white text-xl bg-green p-5 rounded focus:outline-none"
-          >
-            Login With Spotify
-          </button>
-        </a>
+        <button
+          @click.prevent="redirectLogin()"
+          id="button-login"
+          class="text-white text-xl bg-green p-5 rounded focus:outline-none"
+        >
+          Login With Spotify
+        </button>
       </div>
     </div>
   </div>
@@ -27,11 +25,11 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Login extends Vue {
-  name = 'Login';
-
   redirectLogin(): string {
-    console.log('test');
-    return 'test';
+    const clientId = process.env.VUE_APP_SPOTIFY_CLIENT_ID;
+    const urlRedirect = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scope=user-read-private%20user-read-email&state=34fFs29kd09`;
+    console.log(process.env);
+    return (window.location.href = urlRedirect);
   }
 }
 </script>
